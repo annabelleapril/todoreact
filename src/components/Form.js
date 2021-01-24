@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 
 function Form({ setInputText, todos, setTodos, inputText }) {
     function inputTextHandler(e){
