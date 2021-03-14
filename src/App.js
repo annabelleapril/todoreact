@@ -6,17 +6,22 @@ import TodoList from './components/TodoList';
 
 
 function App() {
-  //state stuff
+  //State
   const [inputText, setInputText] = useState('');
   const [todos, setTodos] = useState([]);
   const [status, setStatus] = useState('all');
   const [filteredTodos, setFilteredTodos] = useState([]);
+//useEffects
+useEffect(() => {
+  getLocalTodos();
+}, []);
 
   useEffect(() => {
     filterHandler();
     saveLocalTodos();
   }, [todos, status]);
-//functions
+
+//Functions
 function filterHandler(){
   switch(status){
     case 'completed':
@@ -32,11 +37,17 @@ function filterHandler(){
 }
 
 function saveLocalTodos(){
+    localStorage.setItem('todos', JSON.stringify(todos));
+}
+
+function getLocalTodos(){
   if(localStorage.getItem('todos') === null){
     localStorage.setItem('todos', JSON.stringify([]));
   }
   else{
-    localStorage.setItem('todos', JSON.stringify(todos))
+    let todoLocal = JSON.parse(localStorage.getItem('todos'));
+
+    setTodos(todoLocal);
   }
 }
   
